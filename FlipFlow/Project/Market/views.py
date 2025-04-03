@@ -163,6 +163,7 @@ def inventory(request):
 
     return render(request, "inventory.html", {"items": user_items, "offers": pending_offers})
 
+@login_required
 def sell(request,transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id, user_to=request.user, transaction_status='pending')
     buyer_profile = Profile.objects.get(user=transaction.user_from)

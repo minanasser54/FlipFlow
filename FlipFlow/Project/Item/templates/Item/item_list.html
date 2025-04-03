@@ -1,5 +1,5 @@
-{% extends "base.html" %}
 
+{% extends "base.html" %}
 {% block title %}ITEMS{% endblock %}
 
 {% block body %}
@@ -7,6 +7,34 @@
 <div class="container">
     <h2 class="mb-4">Available Items</h2>
 
+    <!-- Filter and Search Form -->
+    <form method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Search by Name -->
+                <label for="name">Search by Name</label>
+                {{ filter.form.name }}
+            </div>
+            <div class="col-md-3">
+                <!-- Min Price -->
+                <label for="min_price">Min Price</label>
+                {{ filter.form.min_price }}
+            </div>
+            <div class="col-md-3">
+                <!-- Max Price -->
+                <label for="max_price">Max Price</label>
+                {{ filter.form.max_price }}
+            </div>
+            <div class="col-md-3">
+                <!-- Sort by Price -->
+                <label for="price_sort">Sort by Price</label>
+                {{ filter.form.price_sort }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+    </form>
+
+    <!-- Display Items -->
     <div class="row">
         {% for item in items %}
         <div class="col-md-4 mb-4">

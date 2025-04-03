@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.core.paginator import Paginator
 from .models import Profile
 from .forms import SignupForm,UserForm,ProfileForm
@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate,login
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from Market.models import Transaction
 import datetime
 from django.conf import settings
 from django.utils.text import slugify
@@ -77,5 +78,35 @@ def del_account(request,slug):
     request.user.delete()
     return redirect('/')
 
+@login_required
+def transaction_history(request):
+    profile = get_object_or_404(Profile, user=request.user)
+# Transactions where the user is the buyer (bought items)
+    bought_items = Transaction.objects.filter(
+        user_from=request.user, 
+        transaction_type="buy",
+        transaction_status="completed"
+    ).order_by('-created_at')
 
+    # Transactions where the user is the seller (sold items)
+    sold_items = Transaction.objects.filter(
+        user_to=request.user, 
+        transaction_type="buy",
+        transaction_status="completed"
+    ).order_by('-created_at')
 
+    # Transactions that are pending for sale (offers received)
+    to_be_sold = Transaction.objects.filter(
+        user_to=request.user, 
+        transaction_type="buy",
+        transaction_status="pending"
+    ).order_by('-created_at')
+
+    context = {
+        "profile": profile,
+        "bought_items": bought_items,
+        "sold_items": sold_items,
+        "to_be_sold": to_be_sold
+    }
+
+    return render(request, "transaction_history.html", context)

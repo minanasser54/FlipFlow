@@ -1,7 +1,74 @@
 
 
 ---
+**Item**
+- models
+	- Item
+	- Category
+- views
+	- item_list
+	- item_detail
+	- item_create
+	- item_update
+	- item_delete
+- forms
+	- item_form
+**Market**
+- models
+	- Transaction
+- views
+	- deposit
+	- withdraw
 
+	- place_offer
+
+	- admin_pending_deposits
+	-  approve_deposit
+	- reject_deposit
+	
+	- inventory
+	- sell
+
+- forms
+	- DepositForm
+	- OfferForm
+**accounts**
+- models
+	- Profile
+- views
+	- signup
+	- profile
+	- other_profile
+	- profile_edit
+	- del_account
+- forms
+	- SignupForm
+	- UserForm
+	- ProfileForm
+---
+#### 🔑 **Accounts (`/accounts/`)**
+- `/profile/` → **User Profile**
+- `/register/` → **Sign Up**
+- `/profile/edit` → **Edit Profile**
+- `/del_account/<slug>/` → **Delete Account**
+- `/other_profile/<slug>/` → **View Other Profiles**
+#### 🛒 **Market (`/Market/`)**
+- `/deposit/` → **Deposit**
+- `/withdraw/` → **Withdraw**
+- `/admin/pending-deposits/` → **Pending Deposits**
+- `/admin/approve-deposit/<id>/` → **Approve Deposit**
+- `/admin/reject_deposit/<id>/` → **Reject Deposit**
+- `/place_offer/<slug>/` → **Place Offer**
+- `/inventory/` → **Inventory**
+- `/sell/<id>/` → **Sell Item**
+##### 🎨 **Items (`/`)**
+- `/` → **Item List**
+- `/<slug>/` → **Item Details**
+- `/Item/item_create/` → **Create Item**
+- `/Item/item_update/<slug>/` → **Edit Item**
+- `/Item/item_delete/<slug>/` → **Delete Item**
+
+---
 
 ```
 git remote add origin https://github.com/minanasser54/FlipFlow.git
@@ -23,6 +90,7 @@ x. Select at least three functionalities of this marketplace and implement them 
 5. Lists (bought / sold / to be sold)
 6. Inventory managment
 7. reports & analytics page
+
 
 
 python3.12
@@ -127,86 +195,129 @@ Mina2100370
 17. `^static/(?P<path>.*)$`
 ```
 
-```
-{% extends "base.html" %}
+```{% extends "base.html" %}
 
-{% block title %}Inventory{% endblock %}
+  
+
+{% block title %}ITEMS{% endblock %}
+
+  
 
 {% block body %}
 
-<div class="container mt-4">
+{% load static %}
 
-    <h2>Your Inventory</h2>
+<div class="container">
 
-    <h3>Items</h3>
+    <h2 class="mb-4">Available Items</h2>
 
-    <ul>
+  
+
+    <div class="row">
 
         {% for item in items %}
 
-            <li>
+        <div class="col-md-4 mb-4">
 
-                {{ item.Item_name }} -
+            <div class="card shadow-sm">
 
-                {% if item.Item_published %}
+                <div class="card-body">
 
-                    <span class="text-success">Published</span>
+                    <!-- Hyperlinked Item Name -->
 
-                    <form method="POST">
+                    <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none">
 
-                        {% csrf_token %}
+                        <h5 class="card-title">{{ item.Item_name }}</h5>
 
-                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                    </a>
 
-                        <button type="submit" name="action" value="unpublish" class="btn btn-warning">Unpublish</button>
+                    <!-- Display Item Image if Exists -->
 
-                    </form>
+                    {% if item.Item_img %}
 
-                {% else %}
+                    <img src="{{ item.Item_img.url }}" class="card-img-top" alt="Item Image" style="max-height: 200px; object-fit: cover;">
 
-                    <span class="text-danger">Unpublished</span>
+                    {% endif %}
 
-                    <form method="POST">
+                    <!-- Display Item Price -->
 
-                        {% csrf_token %}
+                    <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
 
-                        <input type="hidden" name="item_id" value="{{ item.id }}">
+  
 
-                        <button type="submit" name="action" value="publish" class="btn btn-success">Publish</button>
+                    <!-- Display Item Owner -->
 
-                    </form>
+                    <p class="card-text"><strong>Owner:</strong> {{ item.Item_owner.username }}</p>
 
-                {% endif %}
+  
 
-                <h5>Pending Offers</h5>
+                </div>
 
-                    <ul>
+            </div>
 
-                        {% for offer in offers %}
+        </div>
 
-                            {% if offer.items.id == item.id %}
+        {% empty %}
 
-                                <li>
-
-                                    Offer of ${{ offer.amount }} for {{ offer.items.Item_name }} from {{ offer.user_from }}
-
-                                    <a href="{% url 'Market:sell' offer.id %}" class="btn btn-primary">Review Offer</a>
-
-                                </li>
-
-                            {% endif %}
-
-                        {% endfor %}
-
-                    </ul>
-
-            </li>
+        <p class="text-muted">No items available.</p>
 
         {% endfor %}
 
-    </ul>
+    </div>
 
   
+
+    <!-- Pagination -->
+
+    <nav aria-label="Page navigation">
+
+        <ul class="pagination justify-content-center">
+
+            {% if items.has_previous %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page=1">First</a>
+
+            </li>
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
+
+            </li>
+
+            {% endif %}
+
+  
+
+            <li class="page-item disabled">
+
+                <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+
+            </li>
+
+  
+
+            {% if items.has_next %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
+
+            </li>
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
 
 </div>
 

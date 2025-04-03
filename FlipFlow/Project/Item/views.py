@@ -1,4 +1,6 @@
 from django.shortcuts import render , get_object_or_404 ,redirect
+
+from .filters import ItemFilter
 from .models import Item, Category
 from django.core.paginator import Paginator
 from django.http import FileResponse, Http404,HttpResponse
@@ -8,15 +10,22 @@ from django.utils.text import slugify
 from django.db.models import Q
 from accounts.models import Profile
 from .forms import ItemForm
+from Market.models import Transaction
 # Create your views here.
 
 
 def item_list(request):
     items=Item.objects.filter(Item_published=True)
+
+    
+    item_filter = ItemFilter(request.GET, queryset=Item.objects.all())
+    items = item_filter.qs
     Paginator_items=Paginator(items, 4) # Show 10 items per page
     page_number=request.GET.get('page')
     items=Paginator_items.get_page(page_number)
-    context={'items':items}
+    context={'items':items,
+            'filter': item_filter
+    }
 
     return render(request, 'Item/item_list.html',context)
 
@@ -25,7 +34,33 @@ def item_list(request):
 def item_detail(request,slug):
     item=get_object_or_404(Item,Item_slug=slug)
     profile = item.Item_owner.profile
-    context={'item':item,'profile':profile}
+    
+    # Get all transactions where this item was involved, either as 'user_from' or 'user_to'
+    transactions = Transaction.objects.filter(items=item).order_by('-created_at')  # Order by latest transaction
+# Prepare the ownership history by iterating through transactions
+    ownership_history = []
+    for transaction in transactions:
+        if transaction.transaction_type == 'buy':  # Item was bought
+            ownership_history.append({
+                'seller': transaction.user_to,
+                'buyer': transaction.user_from,
+                'transaction_date': transaction.created_at,
+                'amount': transaction.amount,
+                'status': transaction.transaction_status
+            })
+        elif transaction.transaction_type == 'sell':  # Item was sold
+            ownership_history.append({
+                'seller': transaction.user_to,
+                'buyer': transaction.user_from,
+                'transaction_date': transaction.created_at,
+                'amount': transaction.amount,
+                'status': transaction.transaction_status
+            })
+    context = {
+            'item': item,
+            'profile': profile,
+            'ownership_history': ownership_history,
+        }
     return render(request,'Item/item_detail.html',context)
 
 @login_required

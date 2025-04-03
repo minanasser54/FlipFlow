@@ -1,0 +1,100 @@
+
+
+{% extends "base.html" %}
+{% block title %}Transaction History{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Transaction History</h2>
+
+    <h3>Bought Items</h3>
+    <div class="table-scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Seller</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in bought_items %}
+                    <tr>
+                        <td>{{ transaction.items }}</td>
+                        <td>{{ transaction.user_from }}</td>
+                        <td>${{ transaction.amount }}</td>
+                        <td>{{ transaction.created_at }}</td>
+                        <td>{{ transaction.transaction_status|capfirst }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No items bought yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Sold Items</h3>
+    <div class="table-scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Buyer</th>
+                    <th>Amount</th>
+                    <th>Transaction Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in sold_items %}
+                    <tr>
+                        <td>{{ transaction.items}}</td>
+                        <td>{{ transaction.user_to }}</td>
+                        <td>${{ transaction.amount }}</td>
+                        <td>{{ transaction.created_at }}</td>
+                        <td>{{ transaction.transaction_status|capfirst }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No items sold yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Items to be Sold (Pending Offers)</h3>
+    <div class="table-scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Buyer</th>
+                    <th>Offer Amount</th>
+                    <th>Transaction Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in to_be_sold %}
+                    <tr>
+                        <td>{{ transaction.items }}</td>
+                        <td>{{ transaction.user_to }}</td>
+                        <td>Offer: ${{ transaction.amount }}</td>
+                        <td>{{ transaction.created_at }}</td>
+                        <td>{{ transaction.transaction_status|capfirst }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No pending offers.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

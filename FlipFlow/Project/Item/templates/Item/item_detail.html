@@ -28,6 +28,33 @@
     <a href="{% url 'Market:place_offer' item.Item_slug %}" class="btn btn-secondary mt-3">Place Offer</a>
 
     {% endif %}
+    <h4>Ownership History</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Buyer</th>
+                <th>Seller</th>
+                <th>Transaction Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in ownership_history %}
+                <tr>
+                    <td>{{ record.buyer }}</td>
+                    <td>{{ record.seller }}</td>
+                    <td>{{ record.transaction_date }}</td>
+                    <td>${{ record.amount }}</td>
+                    <td>{{ record.status|capfirst }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No ownership history available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 {% endblock %}
