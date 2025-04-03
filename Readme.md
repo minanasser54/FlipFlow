@@ -3,6 +3,12 @@
 ---
 
 
+```
+git remote add origin https://github.com/minanasser54/FlipFlow.git
+git branch -M main
+git push -u origin main
+```
+
 iii. Add/Edit/remove Items to your account to be sold specifying the needed price.
 iv. Deposit Cash into your account to purchase items.
 v. Search for items for sale by other users. 
