@@ -1,0 +1,199 @@
+{
+  "main": {
+    "id": "e5b3fe288b005bca",
+    "type": "split",
+    "children": [
+      {
+        "id": "17a02268405fdf7c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b325dce4eff06fe2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Readme.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Readme"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "efe4cc310572f2f1",
+    "type": "split",
+    "children": [
+      {
+        "id": "054b8d54926035e0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f3d18ced18407412",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "c4fc1e35b54b39a8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d1477e72af19cd86",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c252216698619f38",
+    "type": "split",
+    "children": [
+      {
+        "id": "a14eabe15a90a81a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6af4df8bef010f2b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Readme.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Readme"
+            }
+          },
+          {
+            "id": "f7a1f5271ede8c37",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Readme.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Readme"
+            }
+          },
+          {
+            "id": "7d0065fa251d6629",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "8720de6a5e325e52",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Readme.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Readme"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b325dce4eff06fe2",
+  "lastOpenFiles": [
+    "FlipFlow/Project/requirements.txt",
+    "FlipFlow/Project/db.sqlite3-journal",
+    "FlipFlow/Project/media/profile_pics/3/3_2025-04-03_01-07-48.jpg",
+    "FlipFlow/Project/media/profile_pics/3",
+    "FlipFlow/Project/media/items_pics/3/3_2025-04-03_00-43-24.jpg",
+    "FlipFlow/Project/media/items_pics/3",
+    "FlipFlow/Project/media/items_pics/2/2_2025-04-03_00-43-05.jpg",
+    "FlipFlow/Project/media/items_pics/2",
+    "FlipFlow/Project/Item/migrations/__pycache__/0003_alter_item_item_owner.cpython-312.pyc",
+    "FlipFlow/Project/Item/migrations/0003_alter_item_item_owner.py",
+    "FlipFlow/Project/media/items_pics/1/1_2025-04-03_00-41-28.jpg",
+    "FlipFlow/Project/media/items_pics/1",
+    "FlipFlow/Project/media/items_pics",
+    "FlipFlow/Project/media/profile_pics/1/1_2025-04-03_00-40-25.jpg",
+    "FlipFlow/Project/media/profile_pics/1",
+    "FlipFlow/Project/media/profile_pics",
+    "FlipFlow/Project/media/profile_imgs/personal_2.jpg",
+    "FlipFlow/Lib/site-packages/soupsieve-2.6.dist-info/licenses/LICENSE.md",
+    "FlipFlow/Project/media/profile_imgs/b3b5a9e8-b7cc-42a2-b359-6b9acda9e3b7.jpg",
+    "FlipFlow/Lib/site-packages/django_countries/static/flags/__.gif",
+    "FlipFlow/Lib/site-packages/django_countries/static/flags/zw.gif",
+    "FlipFlow/Lib/site-packages/django_countries/static/flags/zm.gif",
+    "FlipFlow/Lib/site-packages/django/contrib/admin/static/admin/js/vendor/select2/LICENSE.md",
+    "FlipFlow/Lib/site-packages/django/contrib/admin/static/admin/css/vendor/select2/LICENSE-SELECT2.md",
+    "Readme.md"
+  ]
+}
