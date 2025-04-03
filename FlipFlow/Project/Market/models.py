@@ -27,7 +27,7 @@ class Transaction(models.Model):
     to_approve = models.BooleanField(default=False)
     admin_approve = models.BooleanField(default=False)
 
-    items = models.ManyToManyField(Item, blank=True)
+    items = models.ForeignKey(Item, blank=True,null=True, related_name='transaction_item', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return f"Transaction {self.id} type {self.transaction_type} from {self.user_from} to {self.user_to}"

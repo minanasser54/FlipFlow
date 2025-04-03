@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Sell Item{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Sell Confirmation</h2>
+    <p>Offer: ${{ transaction.amount }} from {{ transaction.user_from }}</p>
+    <p>Item: {{ transaction.items.Item_name }}</p>
+    <p>Item Owner: {{ transaction.items.Item_owner }}</p>
+    <p>Transaction ID: {{ transaction.id }}</p>
+    <p>Transaction Type: {{ transaction.transaction_type }}</p>
+    <p>Transaction Status: {{ transaction.transaction_status }}</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="action" value="accept" class="btn btn-success">Accept Offer</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject Offer</button>
+    </form>
+</div>
+{% endblock %}

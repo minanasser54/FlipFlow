@@ -24,6 +24,9 @@
     {% if item.Item_owner == request.user %}
     <a href="{% url 'Item:item_update' item.Item_slug %}" class="btn btn-secondary mt-3">Edit</a>
     <a href="{% url 'Item:item_delete' item.Item_slug %}" class="btn btn-secondary mt-3">Delete</a>
+    {% else %}
+    <a href="{% url 'Market:place_offer' item.Item_slug %}" class="btn btn-secondary mt-3">Place Offer</a>
+
     {% endif %}
 
 </div>

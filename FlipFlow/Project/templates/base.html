@@ -39,8 +39,14 @@
                     <!-- Profile Link for Authenticated Users -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> Profile</a>
+                    </li> 
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Market:inventory' %}"><i class="fa fa-user"></i> Inventory</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Item:item_create' %}"><i class="fa fa-user"></i> New Item</a>
+                    </li>
                     <!-- Logout Link for Authenticated Users -->
                     <li class="nav-item">
                         <form action="{% url 'logout' %}" method="POST" style="display:inline;">

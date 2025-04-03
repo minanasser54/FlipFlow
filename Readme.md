@@ -130,179 +130,85 @@ Mina2100370
 ```
 {% extends "base.html" %}
 
-{% block title %}{{profile.user.first_name}} {{profile.user.last_name}}{% endblock title %}
+{% block title %}Inventory{% endblock %}
 
 {% block body %}
 
-{% load static %}
+<div class="container mt-4">
 
-<!-- Product Details Section Begin -->
+    <h2>Your Inventory</h2>
 
-<section class="product-details spad">
+    <h3>Items</h3>
 
-    <div class="container">
+    <ul>
 
-        <div class="row">
+        {% for item in items %}
 
-          {% if profile.img %}
+            <li>
 
-            <div class="col-lg-6 col-md-6">
+                {{ item.Item_name }} -
 
-                <div class="product__details__pic">
+                {% if item.Item_published %}
 
-                    <div class="product__details__pic__item">
+                    <span class="text-success">Published</span>
 
-                        <img class="product__details__pic__item--large"
+                    <form method="POST">
 
-                            src="{{profile.img.url}}" alt="">
+                        {% csrf_token %}
 
-                    </div>
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
 
-                </div>
+                        <button type="submit" name="action" value="unpublish" class="btn btn-warning">Unpublish</button>
 
-            </div>
+                    </form>
 
-            {% else %}
+                {% else %}
 
-            {% endif %}
+                    <span class="text-danger">Unpublished</span>
 
-  
+                    <form method="POST">
 
-            <div class="col-lg-6 col-md-6">
+                        {% csrf_token %}
 
-                <div class="product__details__text">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
 
-                    <h3>{{profile.user.first_name}} {{profile.user.last_name}}</h3>
+                        <button type="submit" name="action" value="publish" class="btn btn-success">Publish</button>
 
-                    <div class="product__details__rating">
+                    </form>
 
-                    </div>
+                {% endif %}
 
-                    {% if profile.user == request.user %}
+                <h5>Pending Offers</h5>
 
-                    <a href="{% url 'accounts:profile_edit'  %}" ><button class="primary-btn" >Edit Profile </button></a>
+                    <ul>
 
-                    <a href="{% url 'accounts:del_account' profile.slug %}" ><button class="primary-btn" >Delete Account </button></a>
+                        {% for offer in offers %}
 
-                    {% endif %}
+                            {% if offer.items.id == item.id %}
 
-                    <div class="product__details__price">Profile InFo</div>
+                                <li>
 
-                    <h5>MAIL: {{profile.user.email}} </h5><br>
+                                    Offer of ${{ offer.amount }} for {{ offer.items.Item_name }} from {{ offer.user_from }}
 
-  
+                                    <a href="{% url 'Market:sell' offer.id %}" class="btn btn-primary">Review Offer</a>
 
-                    <p class="mt-5">{{profile.bio|safe}}</p>
+                                </li>
 
-  
+                            {% endif %}
 
-                </div>
+                        {% endfor %}
 
-            </div>
+                    </ul>
 
-        </div>
+            </li>
 
-    </div>
+        {% endfor %}
 
-</section>
-
-<!-- Product Details Section End -->
+    </ul>
 
   
-
-{% endblock body %}
-```
-
-```
-<div class="container">
-
-  <h2 class="mb-4">Available Items</h2>
-
-  <div class="row">
-
-      {% for item in items %}
-
-      <div class="col-md-4 mb-4">
-
-          <div class="card shadow-sm">
-
-              <div class="card-body">
-
-                <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none">
-
-                  <h5 class="card-title">{{ item.Item_name }}</h5>
-
-                </a>
-
-                  <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
-
-              </div>
-
-          </div>
-
-      </div>
-
-      {% empty %}
-
-      <p class="text-muted">No items available.</p>
-
-      {% endfor %}
-
-  </div>
-
-  
-
-  <!-- Pagination -->
-
-  <nav aria-label="Page navigation">
-
-      <ul class="pagination justify-content-center">
-
-          {% if items.has_previous %}
-
-          <li class="page-item">
-
-              <a class="page-link" href="?page=1">First</a>
-
-          </li>
-
-          <li class="page-item">
-
-              <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
-
-          </li>
-
-          {% endif %}
-
-  
-
-          <li class="page-item disabled">
-
-              <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
-
-          </li>
-
-  
-
-          {% if items.has_next %}
-
-          <li class="page-item">
-
-              <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
-
-          </li>
-
-          <li class="page-item">
-
-              <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
-
-          </li>
-
-          {% endif %}
-
-      </ul>
-
-  </nav>
 
 </div>
+
+{% endblock %}
 ```

@@ -31,9 +31,10 @@
                             <td>{{ transaction.created_at }}</td>
                             <td>{{ transaction.transaction_status }}</td>
                             <td>
-                                <!-- Approve Deposit -->
                                 <a href="{% url 'Market:approve_deposit' transaction.id %}" class="btn btn-success">Approve</a>
-                            </td>
+                                <a href="{% url 'Market:reject_deposit' transaction.id %}" class="btn btn-success">Delete</a>
+                            </td> 
+                      
                         </tr>
                     {% endfor %}
                 </tbody>

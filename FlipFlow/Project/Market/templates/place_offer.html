@@ -1,16 +1,17 @@
+
 {% extends "base.html" %}
-{% block title %}Deposit{% endblock title %}
+{% block title %}Place an Offer{% endblock title %}
 {% block body %}
 {% load bootstrap4 %}
 <div class="container">
   <div class=" col-md-12">
-    <p><strong>Balance:</strong> {{ profile.balance|safe }}</p>
+    <p><strong>Minimum:</strong> {{ item.Item_price|safe }}</p>
 
     <form  method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
-      {% bootstrap_form depositform %}
-      <input type="submit"  value="Save Changes" class="site-btn w-100 m-2">
+      {% bootstrap_form offer_form %}
+      <button type="submit" class="btn btn-primary">Submit Offer</button>
     </form>
   </div>
 </div>
