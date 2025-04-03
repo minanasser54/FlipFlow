@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.user.first_name }} {{ profile.user.last_name }}{% endblock %}
+
+{% block body %}
+{% load static %}
+<!-- Profile Details Section Begin -->
+<section class="profile-details py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Profile Image Section -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                {% if profile.img %}
+                <div class="profile-img">
+                    <img src="{{ profile.img.url }}" alt="Profile Image" class="img-fluid rounded-circle">
+                </div>
+                {% else %}
+                <div class="profile-img">
+                    <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Image" class="img-fluid rounded-circle">
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Profile Information Section -->
+            <div class="col-lg-8 col-md-6">
+                <div class="profile-info">
+                    <h3>{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+                    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+                    <p><strong>Bio:</strong> {{ profile.bio|safe }}</p>
+                    <p><strong>Member Since:</strong> {{ profile.user.date_joined|date:"F j, Y" }}</p>
+                    <p><strong>Balance:</strong> {{ profile.balance|safe }}</p>
+
+                    {% if profile.user == request.user %}
+                    <div class="mt-4">
+                        <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary">Edit Profile</a>
+                        <a href="{% url 'accounts:del_account' profile.slug %}" class="btn btn-danger">Delete Account</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Profile Details Section End -->
+
+{% endblock %}
