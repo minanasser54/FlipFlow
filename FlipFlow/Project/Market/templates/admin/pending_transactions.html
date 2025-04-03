@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Pending Transactions{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2>Pending Transactions</h2>
+        
+        {% if pending_deposits %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Created At</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in pending_deposits %}
+                        <tr>
+                            <td>{{ transaction.id }}</td>
+                            <td>{{ transaction.transaction_type }}</td>
+                            <td>{{ transaction.user_from }}</td>
+                            <td>{{ transaction.user_to }}</td>
+                            <td>${{ transaction.amount }}</td>
+                            <td>{{ transaction.created_at }}</td>
+                            <td>{{ transaction.transaction_status }}</td>
+                            <td>
+                                <!-- Approve Deposit -->
+                                <a href="{% url 'Market:approve_deposit' transaction.id %}" class="btn btn-success">Approve</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No pending deposit transactions.</p>
+        {% endif %}
+    </div>
+{% endblock %}

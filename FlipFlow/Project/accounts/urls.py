@@ -5,5 +5,6 @@ urlpatterns=[
     path('profile/',views.profile,name='profile'),
     path('register/',views.signup,name='signup'),
     path('profile/edit',views.profile_edit,name='profile_edit'),
-    path('del_account/<slug:slug>',views.del_account,name='del_account')
+    path('del_account/<slug:slug>',views.del_account,name='del_account'),
+    path('other_profile/<slug:slug>',views.other_profile,name='other_profile'),
 ]

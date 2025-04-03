@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.core.paginator import Paginator
 from .models import Profile
 from .forms import SignupForm,UserForm,ProfileForm
 from django.contrib.auth import authenticate,login
@@ -8,8 +9,9 @@ from django.core.mail import send_mail
 import datetime
 from django.conf import settings
 from django.utils.text import slugify
-
+from Item.models import Item
 # Create your views here.
+from django.contrib import messages
 
 
 
@@ -30,8 +32,22 @@ def signup(request):
 @login_required
 def profile(request):
     profile=Profile.objects.get(user=request.user)
-    
-    context={'profile':profile}
+    items = Item.objects.filter(Item_owner=request.user, Item_published=True)
+    Paginator_items=Paginator(items,2) # Show 10 items per page
+    page_number=request.GET.get('page')
+    items=Paginator_items.get_page(page_number)
+    context={'profile':profile,'items':items}
+    return render(request,'profile.html',context)
+
+
+@login_required
+def other_profile(request,slug):
+    profile=Profile.objects.get(slug=slug)
+    items = Item.objects.filter(Item_owner=profile.user, Item_published=True)
+    Paginator_items=Paginator(items,2) # Show 10 items per page
+    page_number=request.GET.get('page')
+    items=Paginator_items.get_page(page_number)
+    context={'profile':profile,'items':items}
     return render(request,'profile.html',context)
 
 @login_required
@@ -54,8 +70,12 @@ def profile_edit(request):
     return render(request,'profile_edit.html',{'userform':userform,'profileform':profileform})
 
 
+@login_required
 def del_account(request,slug):
     profile=Profile.objects.get(Q(user=request.user)&Q(user=request.user))
     profile.delete()
     request.user.delete()
     return redirect('/')
+
+
+

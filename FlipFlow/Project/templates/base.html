@@ -28,6 +28,14 @@
                 </li>
 
                 {% if user.is_authenticated %}
+                 <!-- Admin Transaction Control Link -->
+                    {% if user.is_staff or user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="{% url 'Market:admin_pending_deposits' %}">
+                                <i class="fa fa-cogs"></i> Manage Transactions
+                            </a>
+                        </li>
+                    {% endif %}
                     <!-- Profile Link for Authenticated Users -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> Profile</a>

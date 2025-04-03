@@ -10,7 +10,10 @@
             <p class="text-muted">Category: {{ item.Item_category.Category_name|default:"Uncategorized" }}</p>
             <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
             <p class="card-text"><strong>Available Quantity:</strong> {{ item.Item_quantity }}</p>
-            <p class="card-text"><strong>Owner:</strong> {{ item.Item_owner }}</p>
+            <p class="card-text"><strong>Owner: </strong> 
+            <a href="{% url 'accounts:other_profile' profile.slug %}" class="text-decoration-none">
+               {{ item.Item_owner }}
+            </a></p>
             <p class="card-text">{{ item.Item_description }}</p>
             <p class="text-muted">Published: {{ item.Item_published|yesno:"Yes,No" }}</p>
             <p class="text-muted"><small>Added on: {{ item.Item_createdat|date:"F j, Y, g:i a" }}</small></p>
@@ -22,5 +25,6 @@
     <a href="{% url 'Item:item_update' item.Item_slug %}" class="btn btn-secondary mt-3">Edit</a>
     <a href="{% url 'Item:item_delete' item.Item_slug %}" class="btn btn-secondary mt-3">Delete</a>
     {% endif %}
+
 </div>
 {% endblock %}

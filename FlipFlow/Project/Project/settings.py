@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Item',
     'accounts',
     'bootstrap4',
+    'Market',
 
 ]
 

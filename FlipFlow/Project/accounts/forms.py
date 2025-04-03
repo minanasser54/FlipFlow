@@ -20,3 +20,4 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['img','bio','country','address','birth_date']
+

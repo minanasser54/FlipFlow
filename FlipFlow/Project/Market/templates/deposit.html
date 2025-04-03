@@ -4,11 +4,12 @@
 {% load bootstrap4 %}
 <div class="container">
   <div class=" col-md-12">
+    <p><strong>Balance:</strong> {{ profile.balance|safe }}</p>
+
     <form  method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
-      {% bootstrap_form userform %}
-      {% bootstrap_form profileform %}
+      {% bootstrap_form depositform %}
       <input type="submit"  value="Save Changes" class="site-btn w-100 m-2">
     </form>
   </div>
