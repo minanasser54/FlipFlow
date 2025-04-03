@@ -8,4 +8,6 @@ urlpatterns=[
     path('del_account/<slug:slug>',views.del_account,name='del_account'),
     path('other_profile/<slug:slug>',views.other_profile,name='other_profile'),
     path('transaction_history/',views.transaction_history,name='transaction_history'),
+    path('analytics/',views.analytics,name='analytics'),
+    
 ]

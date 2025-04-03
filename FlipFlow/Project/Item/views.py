@@ -15,10 +15,7 @@ from Market.models import Transaction
 
 
 def item_list(request):
-    items=Item.objects.filter(Item_published=True)
-
-    
-    item_filter = ItemFilter(request.GET, queryset=Item.objects.all())
+    item_filter = ItemFilter(request.GET, queryset=Item.objects.filter(Item_published=True))
     items = item_filter.qs
     Paginator_items=Paginator(items, 4) # Show 10 items per page
     page_number=request.GET.get('page')

@@ -166,6 +166,7 @@ def inventory(request):
 @login_required
 def sell(request,transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id, user_to=request.user, transaction_status='pending')
+    transactions=Transaction.objects.all()
     buyer_profile = Profile.objects.get(user=transaction.user_from)
     seller_profile = Profile.objects.get(user=transaction.user_to)
     if request.method == "POST":
@@ -186,9 +187,15 @@ def sell(request,transaction_id):
                 transaction.to_approve = True
                 transaction.admin_approve = True
                 transaction.save()
+                for t in transactions:
+                    if t.user_to==seller_profile.user and t.items==transaction.items and t.id != transaction.id :
+                        t.delete()
+                    else:
+                        continue
                 transaction.items.Item_owner = transaction.user_from
                 transaction.items.Item_published = False  # Unpublish after selling
                 transaction.items.save()
+                
 
                 messages.success(request, "Transaction completed! Item sold.")
             else:

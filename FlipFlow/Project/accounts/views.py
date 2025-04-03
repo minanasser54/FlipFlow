@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.shortcuts import get_object_or_404, render,redirect
 from django.core.paginator import Paginator
 from .models import Profile
@@ -110,3 +111,78 @@ def transaction_history(request):
     }
 
     return render(request, "transaction_history.html", context)
+
+
+
+@login_required
+def analytics(request):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    # Extend the timeframe to 90 days
+    today = datetime.date.today()
+    ninety_days_ago = today - datetime.timedelta(days=90)
+
+    # Get transactions within the last 90 days
+    transactions = Transaction.objects.filter(
+        created_at__range=[ninety_days_ago, today],
+        transaction_status="completed",
+        admin_approve=True,
+    )
+
+    # Initialize tracking variables
+    daily_balance = defaultdict(float)
+    total_deposits = 0
+    total_withdrawals = 0
+    total_spent = 0
+    total_earned = 0
+    highest_earning_day = {"date": None, "amount": 0}
+    highest_spending_day = {"date": None, "amount": 0}
+
+    # Process transactions
+    for transaction in transactions:
+        date = transaction.created_at.date()
+        amount = float(transaction.amount)
+
+        if transaction.transaction_type == "deposit" and transaction.user_to == request.user:
+            total_deposits += amount
+            daily_balance[date] += amount
+
+        elif transaction.transaction_type == "withdraw" and transaction.user_from == request.user:
+            total_withdrawals += amount
+            daily_balance[date] -= amount
+
+        elif transaction.transaction_type == "buy":
+            if transaction.user_from == request.user:  # Buyer (Expense)
+                total_spent += amount
+                daily_balance[date] -= amount
+                if amount > highest_spending_day["amount"]:
+                    highest_spending_day = {"date": date, "amount": amount}
+
+            elif transaction.user_to == request.user:  # Seller (Revenue)
+                total_earned += amount
+                daily_balance[date] += amount
+                if amount > highest_earning_day["amount"]:
+                    highest_earning_day = {"date": date, "amount": amount}
+
+    # Calculate net balance changes (Total Deposits + Earnings - Withdrawals - Spending)
+    net_balance_change = (total_deposits + total_earned) - (total_withdrawals + total_spent)
+
+    # Convert balance history to sorted list for chart rendering
+    balance_chart_data = sorted(daily_balance.items())
+
+    context = {
+        "profile": profile,
+        "total_deposits": total_deposits,
+        "total_withdrawals": total_withdrawals,
+        "total_spent": total_spent,
+        "total_earned": total_earned,
+        "net_balance_change": net_balance_change,
+        "highest_earning_day": highest_earning_day,
+        "highest_spending_day": highest_spending_day,
+        "transactions": transactions,
+        "today": today,
+        "ninety_days_ago": ninety_days_ago,
+        "balance_chart_data": balance_chart_data,
+    }
+
+    return render(request, "analytics.html", context)

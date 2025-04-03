@@ -1,5 +1,5 @@
 import django_filters
-from .models import Item
+from .models import Item,Category
 
 class ItemFilter(django_filters.FilterSet):
     # Search filter for item name (case-insensitive)
@@ -8,6 +8,9 @@ class ItemFilter(django_filters.FilterSet):
     # Filter by price range (min_price, max_price)
     min_price = django_filters.NumberFilter(field_name='Item_price', lookup_expr='gte', label='Min Price')
     max_price = django_filters.NumberFilter(field_name='Item_price', lookup_expr='lte', label='Max Price')
+
+    # Filter by Category
+    category = django_filters.ModelChoiceFilter(field_name='Item_category',queryset=Category.objects.all(), label='Category')
 
 
     # Sort by item price
@@ -27,4 +30,4 @@ class ItemFilter(django_filters.FilterSet):
 
     class Meta:
         model = Item
-        fields = ['name', 'min_price', 'max_price', 'price_sort']
+        fields = ['name', 'min_price', 'max_price', 'category', 'price_sort']

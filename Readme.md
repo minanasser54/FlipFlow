@@ -1,6 +1,184 @@
 
 
 ---
+```
+  
+
+{% extends "base.html" %}
+
+{% block title %}ITEMS{% endblock %}
+
+  
+
+{% block body %}
+
+{% load static %}
+
+<div class="container">
+
+    <h2 class="mb-4">Available Items</h2>
+
+  
+
+    <!-- Filter and Search Form -->
+
+    <form method="get" class="mb-4">
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <!-- Search by Name -->
+
+                <label for="name">Search by Name</label>
+
+                {{ filter.form.name }}
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- Min Price -->
+
+                <label for="min_price">Min Price</label>
+
+                {{ filter.form.min_price }}
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- Max Price -->
+
+                <label for="max_price">Max Price</label>
+
+                {{ filter.form.max_price }}
+
+            </div>
+
+
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+
+    </form>
+
+  
+
+    <!-- Display Items -->
+
+    <div class="row">
+
+        {% for item in items %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <!-- Hyperlinked Item Name -->
+
+                    <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none">
+
+                        <h5 class="card-title">{{ item.Item_name }}</h5>
+
+                    </a>
+
+                    <!-- Display Item Image if Exists -->
+
+                    {% if item.Item_img %}
+
+                    <img src="{{ item.Item_img.url }}" class="card-img-top" alt="Item Image" style="max-height: 200px; object-fit: cover;">
+
+                    {% endif %}
+
+                    <!-- Display Item Price -->
+
+                    <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
+
+  
+
+                    <!-- Display Item Owner -->
+
+                    <p class="card-text"><strong>Owner:</strong> {{ item.Item_owner.username }}</p>
+
+  
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p class="text-muted">No items available.</p>
+
+        {% endfor %}
+
+    </div>
+
+  
+
+    <!-- Pagination -->
+
+    <nav aria-label="Page navigation">
+
+        <ul class="pagination justify-content-center">
+
+            {% if items.has_previous %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page=1">First</a>
+
+            </li>
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
+
+            </li>
+
+            {% endif %}
+
+  
+
+            <li class="page-item disabled">
+
+                <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+
+            </li>
+
+  
+
+            {% if items.has_next %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
+
+            </li>
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</div>
+
+{% endblock %}
+```
+
 **Item**
 - models
 	- Item

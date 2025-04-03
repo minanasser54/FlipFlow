@@ -16,21 +16,26 @@
                 {{ filter.form.name }}
             </div>
             <div class="col-md-3">
-                <!-- Min Price -->
-                <label for="min_price">Min Price</label>
-                {{ filter.form.min_price }}
+                <!-- Min Price Slider -->
+                <label for="min_price">Min Price: $<span id="min-price-value">500</span></label>
+                <input type="range" name="min_price" id="min-price" min="0" max="5000" value="{{ filter.form.min_price.value }}" class="form-range">
             </div>
             <div class="col-md-3">
-                <!-- Max Price -->
-                <label for="max_price">Max Price</label>
-                {{ filter.form.max_price }}
+                <!-- Max Price Slider -->
+                <label for="max_price">Max Price: $<span id="max-price-value">500</span></label>
+                <input type="range" name="max_price" id="max-price" min="0" max="100000" value="{{ filter.form.max_price.value }}" class="form-range">
             </div>
-            <div class="col-md-3">
-                <!-- Sort by Price -->
+                <div class="col-md-3">
                 <label for="price_sort">Sort by Price</label>
                 {{ filter.form.price_sort }}
+                </div>
+            <div class="col-md-3">
+                <!-- Category Filter -->
+                <label for="category">Category</label>
+                {{ filter.form.category }}
             </div>
         </div>
+
         <button type="submit" class="btn btn-primary">Apply Filters</button>
     </form>
 
@@ -91,4 +96,14 @@
         </ul>
     </nav>
 </div>
+
+<script>
+    // Update price values dynamically
+    document.getElementById("min-price").oninput = function() {
+        document.getElementById("min-price-value").textContent = this.value;
+    };
+    document.getElementById("max-price").oninput = function() {
+        document.getElementById("max-price-value").textContent = this.value;
+    };
+</script>
 {% endblock %}
