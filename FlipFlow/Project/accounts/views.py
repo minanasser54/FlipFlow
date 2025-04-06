@@ -120,6 +120,7 @@ def analytics(request):
 
     # Extend the timeframe to 90 days
     today = datetime.date.today()
+    today=today+datetime.timedelta(days=1)
     ninety_days_ago = today - datetime.timedelta(days=90)
 
     # Get transactions within the last 90 days
@@ -127,8 +128,9 @@ def analytics(request):
         created_at__range=[ninety_days_ago, today],
         transaction_status="completed",
         admin_approve=True,
-    )
-
+    ).filter(
+        Q(user_from=request.user) | Q(user_to=request.user)
+    ).order_by("-created_at")
     # Initialize tracking variables
     daily_balance = defaultdict(float)
     total_deposits = 0
