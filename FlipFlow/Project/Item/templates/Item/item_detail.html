@@ -1,60 +1,85 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ item.Item_name }}{% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/item_detail.css' %}">
+{% endblock %}
+
 {% block body %}
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
+<!-- Item Details Section Begin -->
+<main class="mt-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <!-- Item Card -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
             <h2 class="card-title">{{ item.Item_name }}</h2>
-            <p class="text-muted">Category: {{ item.Item_category.Category_name|default:"Uncategorized" }}</p>
+            <p class="text-muted">
+              Category: {{ item.Item_category.Category_name|default:"Uncategorized" }}
+            </p>
             <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
             <p class="card-text"><strong>Available Quantity:</strong> {{ item.Item_quantity }}</p>
-            <p class="card-text"><strong>Owner: </strong> 
-            <a href="{% url 'accounts:other_profile' profile.slug %}" class="text-decoration-none">
-               {{ item.Item_owner }}
-            </a></p>
+            <p class="card-text">
+              <strong>Owner:</strong>
+              <a href="{% url 'accounts:other_profile' profile.slug %}" class="text-decoration-none text-primary">
+                {{ item.Item_owner }}
+              </a>
+            </p>
             <p class="card-text">{{ item.Item_description }}</p>
-            <p class="text-muted">Published: {{ item.Item_published|yesno:"Yes,No" }}</p>
-            <p class="text-muted"><small>Added on: {{ item.Item_createdat|date:"F j, Y, g:i a" }}</small></p>
+            <p class="text-muted">
+              Published: {{ item.Item_published|yesno:"Yes,No" }}
+            </p>
+            <p class="text-muted small">
+              Added on: {{ item.Item_createdat|date:"F j, Y, g:i a" }}
+            </p>
+          </div>
         </div>
-    </div>
 
-    <a href="{% url 'Item:item_list' %}" class="btn btn-secondary mt-3">Back to Listings</a>
-    {% if item.Item_owner == request.user %}
-    <a href="{% url 'Item:item_update' item.Item_slug %}" class="btn btn-secondary mt-3">Edit</a>
-    <a href="{% url 'Item:item_delete' item.Item_slug %}" class="btn btn-secondary mt-3">Delete</a>
-    {% else %}
-    <a href="{% url 'Market:place_offer' item.Item_slug %}" class="btn btn-secondary mt-3">Place Offer</a>
+        <!-- Action Buttons -->
+        <div class="d-flex gap-2 flex-wrap mb-4">
+          <a href="{% url 'Item:item_list' %}" class="btn btn-secondary">Back to Listings</a>
+          {% if item.Item_owner == request.user %}
+            <a href="{% url 'Item:item_update' item.Item_slug %}" class="btn btn-success">Edit</a>
+            <a href="{% url 'Item:item_delete' item.Item_slug %}" class="btn btn-danger">Delete</a>
+          {% else %}
+            <a href="{% url 'Market:place_offer' item.Item_slug %}" class="btn btn-primary">Place Offer</a>
+          {% endif %}
+        </div>
 
-    {% endif %}
-    <h4>Ownership History</h4>
-    <table class="table">
-        <thead>
+        <!-- Ownership History -->
+        <h4 class="mb-3">Ownership History</h4>
+        <table class="table table-striped">
+          <thead class="table-light">
             <tr>
-                <th>Buyer</th>
-                <th>Seller</th>
-                <th>Transaction Date</th>
-                <th>Amount</th>
-                <th>Status</th>
+              <th>Buyer</th>
+              <th>Seller</th>
+              <th>Transaction Date</th>
+              <th>Amount</th>
+              <th>Status</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             {% for record in ownership_history %}
-                <tr>
-                    <td>{{ record.buyer }}</td>
-                    <td>{{ record.seller }}</td>
-                    <td>{{ record.transaction_date }}</td>
-                    <td>${{ record.amount }}</td>
-                    <td>{{ record.status|capfirst }}</td>
-                </tr>
+              <tr>
+                <td>{{ record.buyer }}</td>
+                <td>{{ record.seller }}</td>
+                <td>{{ record.transaction_date }}</td>
+                <td>${{ record.amount }}</td>
+                <td>{{ record.status|capfirst }}</td>
+              </tr>
             {% empty %}
-                <tr>
-                    <td colspan="5">No ownership history available.</td>
-                </tr>
+              <tr>
+                <td colspan="5" class="text-center text-muted">No ownership history available.</td>
+              </tr>
             {% endfor %}
-        </tbody>
-    </table>
-
-</div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Item Details Section End -->
 {% endblock %}

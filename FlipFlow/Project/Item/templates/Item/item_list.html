@@ -1,109 +1,145 @@
-
 {% extends "base.html" %}
-{% block title %}ITEMS{% endblock %}
+{% load static %}
+
+{% block title %}Items List{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/items_list.css' %}">
+{% endblock %}
 
 {% block body %}
-{% load static %}
-<div class="container">
-    <h2 class="mb-4">Available Items</h2>
+<!-- Items List Section Begin -->
+<main class="mt-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Available Items</h2>
 
     <!-- Filter and Search Form -->
     <form method="get" class="mb-4">
-        <div class="row">
-            <div class="col-md-3">
-                <!-- Search by Name -->
-                <label for="name">Search by Name</label>
-                {{ filter.form.name }}
-            </div>
-            <div class="col-md-3">
-                <!-- Min Price Slider -->
-                <label for="min_price">Min Price: $<span id="min-price-value">500</span></label>
-                <input type="range" name="min_price" id="min-price" min="0" max="5000" value="{{ filter.form.min_price.value }}" class="form-range">
-            </div>
-            <div class="col-md-3">
-                <!-- Max Price Slider -->
-                <label for="max_price">Max Price: $<span id="max-price-value">500</span></label>
-                <input type="range" name="max_price" id="max-price" min="0" max="100000" value="{{ filter.form.max_price.value }}" class="form-range">
-            </div>
-                <div class="col-md-3">
-                <label for="price_sort">Sort by Price</label>
-                {{ filter.form.price_sort }}
-                </div>
-            <div class="col-md-3">
-                <!-- Category Filter -->
-                <label for="category">Category</label>
-                {{ filter.form.category }}
-            </div>
+      <div class="row g-3">
+        <!-- Search by Name -->
+        <div class="col-md-3">
+          <label for="name" class="form-label">Search by Name</label>
+          {{ filter.form.name }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Apply Filters</button>
+        <!-- Min Price Slider -->
+        <div class="col-md-3">
+          <label for="min-price" class="form-label">Min Price: $<span id="min-price-value">{{ filter.form.min_price.value|default:"0" }}</span></label>
+          <input
+            type="range"
+            name="min_price"
+            id="min-price"
+            min="0"
+            max="5000"
+            value="{{ filter.form.min_price.value|default:"0" }}"
+            class="form-range"
+          >
+        </div>
+
+        <!-- Max Price Slider -->
+        <div class="col-md-3">
+          <label for="max-price" class="form-label">Max Price: $<span id="max-price-value">{{ filter.form.max_price.value|default:"100000" }}</span></label>
+          <input
+            type="range"
+            name="max_price"
+            id="max-price"
+            min="0"
+            max="100000"
+            value="{{ filter.form.max_price.value|default:"100000" }}"
+            class="form-range"
+          >
+        </div>
+
+        <!-- Sort by Price -->
+        <div class="col-md-3">
+          <label for="price_sort" class="form-label">Sort by Price</label>
+          {{ filter.form.price_sort }}
+        </div>
+
+        <!-- Category Filter -->
+        <div class="col-md-3">
+          <label for="category" class="form-label">Category</label>
+          {{ filter.form.category }}
+        </div>
+
+        <!-- Apply Filters Button -->
+        <div class="col-md-12 d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div>
+      </div>
     </form>
 
     <!-- Display Items -->
     <div class="row">
-        {% for item in items %}
+      {% for item in items %}
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <!-- Hyperlinked Item Name -->
-                    <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none">
-                        <h5 class="card-title">{{ item.Item_name }}</h5>
-                    </a>
-                    
-                    <!-- Display Item Image if Exists -->
-                    {% if item.Item_img %}
-                    <img src="{{ item.Item_img.url }}" class="card-img-top" alt="Item Image" style="max-height: 200px; object-fit: cover;">
-                    {% endif %}
-                    
-                    <!-- Display Item Price -->
-                    <p class="card-text"><strong>Price:</strong> ${{ item.Item_price }}</p>
+          <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+              <!-- Hyperlinked Item Name -->
+              <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none text-dark">
+                <h5 class="card-title">{{ item.Item_name }}</h5>
+              </a>
 
-                    <!-- Display Item Owner -->
-                    <p class="card-text"><strong>Owner:</strong> {{ item.Item_owner.username }}</p>
+              <!-- Display Item Image if Exists -->
+              {% if item.Item_img %}
+                <img src="{{ item.Item_img.url }}" class="card-img-top mt-2" alt="Item Image" style="max-height: 150px; object-fit: cover;">
+              {% endif %}
 
-                </div>
+              <!-- Display Item Price -->
+              <p class="card-text mt-2"><strong>Price:</strong> ${{ item.Item_price }}</p>
+
+              <!-- Display Item Owner -->
+              <p class="card-text mt-2"><strong>Owner:</strong> {{ item.Item_owner.username }}</p>
+
+              <!-- View Details Button -->
+              <div class="mt-auto">
+                <a href="{% url 'Item:item_detail' item.Item_slug %}" class="btn btn-outline-primary w-100">View Details</a>
+              </div>
             </div>
+          </div>
         </div>
-        {% empty %}
-        <p class="text-muted">No items available.</p>
-        {% endfor %}
+      {% empty %}
+        <p class="text-muted text-center">No items available.</p>
+      {% endfor %}
     </div>
 
     <!-- Pagination -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if items.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1">First</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
-            </li>
-            {% endif %}
+    <nav aria-label="Page navigation" class="mt-4">
+      <ul class="pagination justify-content-center">
+        {% if items.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">First</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
+          </li>
+        {% endif %}
 
-            <li class="page-item disabled">
-                <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
-            </li>
+        <li class="page-item disabled">
+          <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+        </li>
 
-            {% if items.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
-            </li>
-            {% endif %}
-        </ul>
+        {% if items.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
+          </li>
+        {% endif %}
+      </ul>
     </nav>
-</div>
+  </div>
+</main>
+<!-- Items List Section End -->
 
 <script>
-    // Update price values dynamically
-    document.getElementById("min-price").oninput = function() {
-        document.getElementById("min-price-value").textContent = this.value;
-    };
-    document.getElementById("max-price").oninput = function() {
-        document.getElementById("max-price-value").textContent = this.value;
-    };
+  // Update price values dynamically
+  document.getElementById("min-price").oninput = function () {
+    document.getElementById("min-price-value").textContent = this.value;
+  };
+  document.getElementById("max-price").oninput = function () {
+    document.getElementById("max-price-value").textContent = this.value;
+  };
 </script>
 {% endblock %}
