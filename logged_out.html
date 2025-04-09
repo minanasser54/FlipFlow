@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/logged_out.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Logged Out Section Begin -->
+<main class="mt-5">
+  <div class="container my_naved">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card shadow-sm p-4 text-center">
+          <h2 class="mb-4">You Have Been Logged Out</h2>
+          <p class="text-muted mb-4">Thank you for using FlipFlow. We hope to see you again soon!</p>
+          <a href="{% url 'login' %}" class="btn btn-primary btn-lg w-100">Login Again</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Logged Out Section End -->
+{% endblock %}

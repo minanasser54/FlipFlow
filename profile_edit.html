@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Edit Profile{% endblock title %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Profile Edit Section Begin -->
+<section class="profile-edit py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-sm">
+          <div class="card-body p-5">
+            <h2 class="text-center mb-4">Edit Your Profile</h2>
+
+            <!-- Profile Edit Form -->
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+              {% csrf_token %}
+
+              <!-- User Form Fields -->
+              <div class="mb-4">
+                <h5 class="mb-3">User Information</h5>
+                {% bootstrap_form userform %}
+              </div>
+
+              <!-- Profile Form Fields -->
+              <div class="mb-4">
+                <h5 class="mb-3">Profile Details</h5>
+                {% bootstrap_form profileform %}
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Profile Edit Section End -->
+{% endblock body %}

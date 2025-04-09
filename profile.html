@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ profile.user.first_name }} {{ profile.user.last_name }}
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<!-- Profile Details Section Begin -->
+<section class="profile-details py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <!-- Profile Image Section -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="profile-img text-center">
+          {% if profile.img %}
+            <img src="{{ profile.img.url }}" alt="Profile Image" class="img-fluid rounded-circle profile-image" />
+          {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Image" class="img-fluid rounded-circle profile-image" />
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Profile Information Section -->
+      <div class="col-lg-8 col-md-6">
+        <div class="profile-info card shadow-sm p-4">
+          <h3 class="mb-3">{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+          <p><strong>Email:</strong> {{ profile.user.email }}</p>
+          <p><strong>Username:</strong> {{ profile.user.username }}</p>
+          <p><strong>Bio:</strong> {{ profile.bio|safe }}</p>
+          <p><strong>Member Since:</strong> {{ profile.user.date_joined|date:"F j, Y" }}</p>
+          <p><strong>Balance:</strong> ${{ profile.balance|safe }}</p>
+
+          {% if profile.user == request.user %}
+          <div class="mt-4 d-flex gap-2 flex-wrap">
+            <a href="{% url 'accounts:analytics' %}" class="btn btn-primary">View Analytics</a>
+            <a href="{% url 'accounts:profile_edit' %}" class="btn btn-secondary">Edit Profile</a>
+            <a href="{% url 'accounts:del_account' profile.slug %}" class="btn btn-danger">Delete Account</a>
+            <a href="{% url 'Market:deposit' %}" class="btn btn-success">Deposit</a>
+            <a href="{% url 'Market:withdraw' %}" class="btn btn-warning text-white">Withdraw</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- User's Items Section -->
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Created Items</h2>
+      <div class="row">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+              <a href="{% url 'Item:item_detail' item.Item_slug %}" class="text-decoration-none">
+                <h5 class="card-title">{{ item.Item_name }}</h5>
+              </a>
+              {% if item.Item_img %}
+                <img src="{{ item.Item_img.url }}" class="card-img-top mt-2" alt="Item Image" style="max-height: 150px; object-fit: cover;" />
+              {% endif %}
+              <p class="card-text mt-2"><strong>Price:</strong> ${{ item.Item_price }}</p>
+              <p class="card-text mt-2"><strong>Owner:</strong> {{ item.Item_owner.username }}</p>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-muted text-center">No items available.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% if items.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">First</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.previous_page_number }}">Previous</a>
+          </li>
+          {% endif %}
+          <li class="page-item disabled">
+            <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+          </li>
+          {% if items.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.next_page_number }}">Next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ items.paginator.num_pages }}">Last</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+<!-- Profile Details Section End -->
+{% endblock %}
