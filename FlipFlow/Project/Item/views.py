@@ -11,6 +11,8 @@ from django.db.models import Q
 from accounts.models import Profile
 from .forms import ItemForm
 from Market.models import Transaction
+from django.db.models import Count, Sum
+
 # Create your views here.
 
 
@@ -102,3 +104,28 @@ def item_delete(request,slug):
     if item.Item_owner==request.user:
         item.delete()
         return redirect('/')
+
+@login_required
+def item_analytics_view(request):
+    # Filter only completed "buy" transactions
+    transactions = Transaction.objects.filter(transaction_type='buy', transaction_status='completed', items__isnull=False)
+
+    # Analytics
+    best_sellers = (
+        transactions.values('items__id', 'items__Item_name', 'items__Item_img')
+        .annotate(total_sales=Count('id'), total_revenue=Sum('amount'))
+        .order_by('-total_sales')[:5]
+    )
+
+    # Recently sold items
+    recent_sales = (
+        transactions.select_related('items')
+        .order_by('-created_at')[:5]
+    )
+
+    context = {
+        'best_sellers': best_sellers,
+        'recent_sales': recent_sales,
+    }
+
+    return render(request, 'Item/item_analytics.html', context)

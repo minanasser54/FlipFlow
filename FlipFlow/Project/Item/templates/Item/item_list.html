@@ -5,6 +5,7 @@
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/items_list.css' %}">
+  
 {% endblock %}
 
 {% block body %}
@@ -61,16 +62,22 @@
           <label for="category" class="form-label">Category</label>
           {{ filter.form.category }}
         </div>
-
+      
         <!-- Apply Filters Button -->
         <div class="col-md-12 d-flex justify-content-end">
           <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div>  
+        <div>
+          <a href="{% url 'Item:item_analytics_view' %}" class="modern-analytics-btn">
+            <i class="bi bi-bar-chart-line"></i> View Items Analytics
+          </a>
         </div>
       </div>
     </form>
-
+   
     <!-- Display Items -->
     <div class="row">
+    
       {% for item in items %}
         <div class="col-md-4 mb-4">
           <div class="card h-100 shadow-sm">

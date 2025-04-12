@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Items Analytics{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/items_list.css' %}">
+  <style>
+    .analytics-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .analytics-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="analytics-container">
+
+  <div class="analytics-card">
+    <h3>📈 Top Selling Items (by Sales Count)</h3>
+    <canvas id="topSellersChart"></canvas>
+  </div>
+
+  <div class="analytics-card">
+    <h3>💰 Top Revenue Items</h3>
+    <canvas id="revenueChart"></canvas>
+  </div>
+
+</div>
+
+<script>
+  const sellerCtx = document.getElementById('topSellersChart').getContext('2d');
+  const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+
+  const labels = [{% for item in best_sellers %}"{{ item.items__Item_name }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+  const salesData = [{% for item in best_sellers %}{{ item.total_sales }}{% if not forloop.last %},{% endif %}{% endfor %}];
+  const revenueData = [{% for item in best_sellers %}{{ item.total_revenue }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+  new Chart(sellerCtx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Sales Count',
+        data: salesData,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  new Chart(revenueCtx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Total Revenue ($)',
+        data: revenueData,
+        fill: false,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+{% endblock %}
