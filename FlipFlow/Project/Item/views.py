@@ -39,15 +39,7 @@ def item_detail(request,slug):
 # Prepare the ownership history by iterating through transactions
     ownership_history = []
     for transaction in transactions:
-        if transaction.transaction_type == 'buy':  # Item was bought
-            ownership_history.append({
-                'seller': transaction.user_to,
-                'buyer': transaction.user_from,
-                'transaction_date': transaction.created_at,
-                'amount': transaction.amount,
-                'status': transaction.transaction_status
-            })
-        elif transaction.transaction_type == 'sell':  # Item was sold
+        if transaction.transaction_type == 'buy' and transaction.transaction_status=='completed':  # Item was bought
             ownership_history.append({
                 'seller': transaction.user_to,
                 'buyer': transaction.user_from,
