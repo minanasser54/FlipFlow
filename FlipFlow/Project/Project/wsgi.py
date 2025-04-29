@@ -89,7 +89,6 @@ if os.environ.get('RUN_MAIN') == 'true':  # Django's autoreload check
                 else:
                     print(f"Backup failed for unknown reason", flush=True)
                     
-                # Clean up old backups (keep last 5)
                 backups = sorted([f for f in os.listdir(backup_dir) if f.startswith('db_replica_')],key=lambda x: os.path.getmtime(os.path.join(backup_dir, x)))
                 for old_backup in backups[:-1]:
                     os.remove(os.path.join(backup_dir, old_backup))        
