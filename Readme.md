@@ -100,18 +100,18 @@ Each app includes:
 
 ## 📂 **Directory Structure Explanation**
 
-accounts/               # User login, registration, profile
-api/                    # API views and serializers
-Item/                   # Item models, views, forms
-Market/                 # Buying, selling, and marketplace logic
-media/                  # Uploaded item images
-Project/                # Django project settings and wsgi
-static/                 # CSS, JS, and other static assets
-templates/              # Shared templates (base, layout, etc.)
-db.sqlite3              # Main database file
-db_backups/             # Periodic DB backup storage
-manage.py               # Django management script
-requirements.txt        # Python dependencies
+- accounts/               # User login, registration, profile
+- api/                    # API views and serializers
+- Item/                   # Item models, views, forms
+- Market/                 # Buying, selling, and marketplace logic
+- media/                  # Uploaded item images
+- Project/                # Django project settings and wsgi
+- static/                 # CSS, JS, and other static assets
+- templates/              # Shared templates (base, layout, etc.)
+- db.sqlite3              # Main database file
+- db_backups/             # Periodic DB backup storage
+- manage.py               # Django management script
+- requirements.txt        # Python dependencies
 
 ## 🎨 **Screenshots & Images**
 
