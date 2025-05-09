@@ -116,16 +116,20 @@ Each app includes:
 ## 🎨 **Screenshots & Images**
 
 **main view**
-![[Screenshot 2025-05-10 001413.png]]
+
+![Screenshot 2025-05-10 001413.png](https://github.com/minanasser54/FlipFlow/blob/main/Documention/screenshots/Screenshot%202025-05-10%20001413.png)
+
 **profile view**
-![[Screenshot 2025-05-10 000312.png]]
+
+![Screenshot 2025-05-10 000312.png](https://github.com/minanasser54/FlipFlow/blob/main/Documention/screenshots/Screenshot%202025-05-10%20000312.png)
 
 **inventory managment**
 
-![[Screenshot 2025-05-10 001653.png]]
-**api view**
-![[Screenshot 2025-05-10 002807.png]]
+![Screenshot 2025-05-10 001653.png](https://github.com/minanasser54/FlipFlow/blob/main/Documention/screenshots/Screenshot%202025-05-10%20001653.png)
 
+**api view**
+
+![](https://github.com/minanasser54/FlipFlow/blob/main/Documention/screenshots/Screenshot%202025-05-10%20002807.png)
 
 ---
 ## 🤝 **Contributing**
