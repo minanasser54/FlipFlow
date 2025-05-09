@@ -3,94 +3,134 @@
 ## 📄 **Overview**
 **FlipFlow** is a comprehensive web application built with Django. It enables users to manage items, conduct transactions, and perform item analytics in an interactive and modern platform.
 
+---
 ## 💻 **How to Run the Server**
-
 To run the server on your local machine, follow these steps:
-
-### 1. Clone the Repository:
+### 1.1 Just Clone the Repository:
 ```bash
 git clone https://github.com/yourusername/flipflow.git
 cd flipflow
 ```
 
-### 2. Set Up Virtual Environment:
+### 1.2 Run "commands open server.py"
+This is an automated python script which opens the venv and runs the server for you.
+```python
+import os
+import webbrowser
+import socket
+hostname = socket.gethostname()    
+IPAddr = socket.gethostbyname(hostname)
+webbrowser.open("http://{}:8000".format(IPAddr))
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-bash
+# Change the working directory to the script's directory
+os.chdir(script_dir)
+print("Current working directory:", os.getcwd())
 
-CopyEdit
+os.system('cmd /k "cd FlipFlow  & cd Scripts & activate & cd.. & cd Project & python manage.py runserver {}:8000"'.format(IPAddr))
+```
 
-`` python -m venv venv source venv/bin/activate  # On Windows, use `venv\Scripts\activate` ``
-
-### 3. Install Dependencies:
-
-bash
-
-CopyEdit
-
+### 1.3 case of dependancies error run
+@FlipFlow\FlipFlow\Project
 `pip install -r requirements.txt`
 
-### 4. Set Up Database:
-
-If you are using SQLite, no further configuration is needed. For MySQL or PostgreSQL, make sure to update the `DATABASES` setting in `settings.py`.
-
-### 5. Run Migrations:
-
-bash
-
-CopyEdit
-
-`python manage.py migrate`
-
-### 6. Run the Server:
-
-bash
-
-CopyEdit
-
+### 1.4 manual runserver
+@FlipFlow\FlipFlow\
+open terminal & write
+`.\scripts\activate`
+@FlipFlow\FlipFlow\Project
 `python manage.py runserver`
 
 Your application should now be running at `http://localhost:8000` or `http://<Your-IP-Address>:8000`.
 
-Alternatively, if you want to open the server on a specific IP address (useful for testing on multiple devices), you can run the following:
-
-python
-
-CopyEdit
-
-`import os import webbrowser import socket  hostname = socket.gethostname()     IPAddr = socket.gethostbyname(hostname) webbrowser.open("http://{}:8000".format(IPAddr))  script_dir = os.path.dirname(os.path.abspath(__file__)) os.chdir(script_dir)  os.system('cmd /k "cd FlipFlow & cd Scripts & activate & cd.. & cd Project & python manage.py runserver {}:8000"'.format(IPAddr))`
-
-This script will open the browser on your local IP and start the server automatically.
-
+---
 ## 🛠️ **Technologies Used**
 
+- **Python 3.11+**
+- **Django 4.x**
+- **Django REST Framework**
+- **SQLite3** (Default, pluggable with PostgreSQL/MySQL)
+- **Bootstrap 5** (for frontend UI)
+- **HTML & CSS**
+- **JavaScript (Vanilla)**
+- **Threading / Multiprocessing** (for periodic DB replication)
+- **Git** (version control)
+
+---
 ## ⚙️ **Key Features**
 
-## 🌐 **Project Structure**
-
-
-## 🎨 **Screenshots & Images**
-
-## 📂 **Directory Structure Explanation**
-
-- **Project/**: Contains the main Django project configuration files, including settings, URLs, and WSGI setup.
-    
-- **Item/**: Manages all item-related operations such as creating, updating, and deleting items.
-    
-- **Market/**: Handles transactions, deposit/withdrawal functionalities, and offers management.
-    
-- **accounts/**: Manages user authentication, profile management, and transaction history.
-    
-- **static/**: Contains all the CSS, JavaScript, and image files used in the frontend.
-    
-- **templates/**: Stores all the HTML templates for rendering dynamic pages.
-
+FlipFlow offers the following features to its clients:
+1. **Secure accounting** using Django’s authentication system.
+2. **Add, edit, or remove items** to be sold, each with price, description, quantity, and images.
+3. **Deposit & withdraw cash** into your account to purchase items.
+4. **Search for items** posted by other users.
+5. **Purchase items from others**, transferring money and ownership.
+6. **View full account info**:
+   - Current cash balance
+   - Purchased items
+   - Sold items
+   - Unsold inventory
+8. **Inventory management dashboard**
+9. **User and item analytics**, including statistics and charts.
+10. **Robust REST API** to:
+    - List, create, update, and delete items
+    - Handle authorized transactions
+    - Enable integration with external tools
+11. **Batch add items via JSON API** (supports automation and integration)
+12. **WSGI-threaded full DB replication** every 10 seconds for backup and fault tolerance
 
 ---
 
-### **Contributing**
+## 🌐 **Project Structure**
 
-If you'd like to contribute to this project, feel free to fork it and create a pull request. We welcome all contributions!
+The FlipFlow project is divided into modular Django apps:
+- **`Market`** – Handles item listing, purchases, and search
+- **`Item`** – Manages individual item CRUD and media
+- **`accounts`** – User registration, login, profile, and balance
+- **`api`** – Exposes RESTful endpoints for all above features
+Each app includes:
+- `models.py` – Data schema
+- `urls.py` – App routing
+- `views.py` – Core business logic
+- `templates/` – HTML templates
+- `forms.py` – Input handling
+- `api/serializers.py` – API serializers for DRF
 
+---
+
+## 📂 **Directory Structure Explanation**
+
+accounts/               # User login, registration, profile
+api/                    # API views and serializers
+Item/                   # Item models, views, forms
+Market/                 # Buying, selling, and marketplace logic
+media/                  # Uploaded item images
+Project/                # Django project settings and wsgi
+static/                 # CSS, JS, and other static assets
+templates/              # Shared templates (base, layout, etc.)
+db.sqlite3              # Main database file
+db_backups/             # Periodic DB backup storage
+manage.py               # Django management script
+requirements.txt        # Python dependencies
+
+## 🎨 **Screenshots & Images**
+
+
+---
+## 🤝 **Contributing**
+
+We welcome contributions!  
+To contribute:
+
+1. Fork this repository
+    
+2. Create a new branch (`git checkout -b feature/YourFeature`)
+    
+3. Commit your changes
+    
+4. Push to your branch (`git push origin feature/YourFeature`)
+    
+5. Create a Pull Request
 ---
 
 **Thank you for checking out FlipFlow!** 🚀

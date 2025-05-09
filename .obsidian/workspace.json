@@ -11,10 +11,14 @@
             "id": "a7ed2e6e7d95cce0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Readme.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Readme"
             }
           }
         ]
@@ -166,17 +170,18 @@
   },
   "active": "a7ed2e6e7d95cce0",
   "lastOpenFiles": [
+    "FlipFlow/Project/db_backups/db_replica_20250510_014215.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014155.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014135.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014115.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014055.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014035.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_014015.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_013955.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_013935.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_013915.sqlite3",
+    "FlipFlow/Project/db_backups/db_replica_20250510_013855.sqlite3",
     "Readme.md",
-    "FlipFlow/db/DDB Fragmentation.pdf",
-    "FlipFlow/db/Assignment (3) .pdf",
-    "FlipFlow/db/backup.json",
-    "FlipFlow/db/account_schema.sql",
-    "FlipFlow/db/Market_schema.sql",
-    "FlipFlow/db/Item_schema.sql",
-    "FlipFlow/Project/backup.json",
-    "FlipFlow/Project/account_schema.sql",
-    "FlipFlow/Project/Market_schema.sql",
-    "FlipFlow/Project/Item_schema.sql",
     "FlipFlow/db/Fragmentation.md",
     "FlipFlow/db/Switching databases in Django is to.md",
     "FlipFlow/Lib/site-packages/~jango/contrib/admin/static/admin/js/vendor/select2/LICENSE.md",
