@@ -4,39 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "17a02268405fdf7c",
+        "id": "ba8e8dee3cc70f93",
         "type": "tabs",
         "children": [
           {
-            "id": "b325dce4eff06fe2",
+            "id": "a7ed2e6e7d95cce0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Readme.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Readme"
-            }
-          },
-          {
-            "id": "42338104a38598fb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "FlipFlow/db/Fragmentation.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Fragmentation"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -183,21 +164,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "42338104a38598fb",
+  "active": "a7ed2e6e7d95cce0",
   "lastOpenFiles": [
     "Readme.md",
+    "FlipFlow/db/DDB Fragmentation.pdf",
+    "FlipFlow/db/Assignment (3) .pdf",
+    "FlipFlow/db/backup.json",
+    "FlipFlow/db/account_schema.sql",
+    "FlipFlow/db/Market_schema.sql",
+    "FlipFlow/db/Item_schema.sql",
+    "FlipFlow/Project/backup.json",
+    "FlipFlow/Project/account_schema.sql",
+    "FlipFlow/Project/Market_schema.sql",
+    "FlipFlow/Project/Item_schema.sql",
     "FlipFlow/db/Fragmentation.md",
     "FlipFlow/db/Switching databases in Django is to.md",
-    "FlipFlow/Project/db.sqlite3-journal",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/__init__.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/write_concern.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/uri_parser.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/topology_description.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/topology.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/thread_util.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/ssl_match_hostname.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/ssl_support.cpython-312.pyc",
-    "FlipFlow/Lib/site-packages/~ymongo/__pycache__/ssl_context.cpython-312.pyc",
     "FlipFlow/Lib/site-packages/~jango/contrib/admin/static/admin/js/vendor/select2/LICENSE.md",
     "FlipFlow/Lib/site-packages/~jango/contrib/admin/static/admin/css/vendor/select2/LICENSE-SELECT2.md",
     "FlipFlow/Lib/site-packages/~jango/contrib/admin/static/admin/img/gis/move_vertex_on.svg",

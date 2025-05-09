@@ -3,35 +3,6 @@
 ## 📄 **Overview**
 **FlipFlow** is a comprehensive web application built with Django. It enables users to manage items, conduct transactions, and perform item analytics in an interactive and modern platform.
 
-## 🛠️ **Technologies Used**
-- **Django** - Web Framework
-- **Python** - Programming Language
-- **HTML/CSS** - Frontend Technologies
-- **Chart.js** - Data Visualization (for item analytics)
-- **SQLite/MySQL/PostgreSQL** - Database (Depending on your setup)
-- **Bootstrap 5** - CSS Framework (for responsive design)
-- **FontAwesome/Bootstrap Icons** - Icons used across the platform
-
-## ⚙️ **Key Features**
-- **Item Management**: Add, update, and delete items.
-- **Transaction System**: Users can deposit, withdraw, and make purchases.
-- **Item Analytics**: Visualize top-selling items and other key performance metrics.
-- **User Profile Management**: Manage user account details and transaction history.
-- **Admin Dashboard**: Admins can approve or reject transactions, manage items, and more.
-
-## 🌐 **Project Structure**
-
-FlipFlow/ │ ├── **Project** │ ├── settings.py │ ├── urls.py │ └── wsgi.py │ ├── **Item** │ ├── migrations/ │ ├── models.py │ ├── views.py │ └── urls.py │ ├── **Market** │ ├── migrations/ │ ├── models.py │ ├── views.py │ └── urls.py │ ├── **accounts** │ ├── migrations/ │ ├── models.py │ ├── views.py │ └── urls.py │ ├── **static/** │ ├── css/ │ └── images/ │ └── **templates/** ├── base.html ├── item_list.html └── item_detail.html
-## 🎨 **Screenshots & Images**
-### 1. **Dashboard Overview**
-![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard+Overview)
-
-### 2. **Item Analytics**
-![Item Analytics](https://via.placeholder.com/800x400.png?text=Item+Analytics)
-
-### 3. **Transaction History**
-![Transaction History](https://via.placeholder.com/800x400.png?text=Transaction+History)
-
 ## 💻 **How to Run the Server**
 
 To run the server on your local machine, follow these steps:
@@ -90,6 +61,15 @@ CopyEdit
 
 This script will open the browser on your local IP and start the server automatically.
 
+## 🛠️ **Technologies Used**
+
+## ⚙️ **Key Features**
+
+## 🌐 **Project Structure**
+
+
+## 🎨 **Screenshots & Images**
+
 ## 📂 **Directory Structure Explanation**
 
 - **Project/**: Contains the main Django project configuration files, including settings, URLs, and WSGI setup.
@@ -103,29 +83,7 @@ This script will open the browser on your local IP and start the server automati
 - **static/**: Contains all the CSS, JavaScript, and image files used in the frontend.
     
 - **templates/**: Stores all the HTML templates for rendering dynamic pages.
-    
 
-## 🤝 **Collaborators**
-
-- **Your Name** - Lead Developer (GitHub: [yourusername](https://github.com/yourusername))
-    
-- **Collaborator 1** - Backend Developer (GitHub: [collaborator1](https://github.com/collaborator1))
-    
-- **Collaborator 2** - Frontend Developer (GitHub: [collaborator2](https://github.com/collaborator2))
-    
-
-## ⚖️ **License**
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## 📞 **Contact**
-
-For any questions or support, feel free to reach out via:
-
-- **Email**: your.email@example.com
-    
-- **GitHub Issues**: [Create an issue here](https://github.com/yourusername/flipflow/issues)
-    
 
 ---
 
