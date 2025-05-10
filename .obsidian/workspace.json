@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "ba8e8dee3cc70f93",
+        "id": "09d30e7081d96537",
         "type": "tabs",
         "children": [
           {
-            "id": "a7ed2e6e7d95cce0",
+            "id": "864d352cacb01999",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Readme.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Readme"
+              "title": "New tab"
             }
           }
         ]
@@ -168,8 +164,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a7ed2e6e7d95cce0",
+  "active": "864d352cacb01999",
   "lastOpenFiles": [
+    "Readme.md",
     "Documention/screenshots/Screenshot 2025-05-10 001714.png",
     "Documention/screenshots/Screenshot 2025-05-10 001653.png",
     "Documention/screenshots/Screenshot 2025-05-10 001628.png",
@@ -180,7 +177,6 @@
     "Documention/screenshots/Screenshot 2025-05-10 000312.png",
     "Documention/screenshots/Screenshot 2025-05-10 000054.png",
     "Documention/screenshots/Screenshot 2025-05-09 235900.png",
-    "Documention/screenshots/Screenshot 2025-05-10 003014.png",
     "Documention/screenshots",
     "Documention/New folder",
     "Documention",
@@ -191,7 +187,6 @@
     "FlipFlow/Project/db_backups/db_replica_20250510_015153.sqlite3",
     "FlipFlow/Project/db_backups/db_replica_20250510_015109.sqlite3",
     "FlipFlow/Project/db_backups/db_replica_20250510_015049.sqlite3",
-    "Readme.md",
     "FlipFlow/db/Fragmentation.md",
     "FlipFlow/db/Switching databases in Django is to.md",
     "FlipFlow/Lib/site-packages/~jango/contrib/admin/static/admin/js/vendor/select2/LICENSE.md",
